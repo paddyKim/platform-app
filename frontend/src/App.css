@@ -1,0 +1,172 @@
+.shell {
+  width: min(960px, calc(100% - 32px));
+  margin: 0 auto;
+  padding: 48px 0;
+}
+
+.overview {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 10px;
+  color: #3d6b4f;
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0;
+  color: #15231b;
+  font-size: clamp(2.4rem, 6vw, 5.2rem);
+  line-height: 0.95;
+}
+
+.summary {
+  max-width: 620px;
+  margin: 18px 0 0;
+  color: #536257;
+  font-size: 1rem;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 180px;
+  padding: 10px 12px;
+  border: 1px solid #c9d8c8;
+  background: #f7fbf3;
+  color: #1e3a2a;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: #2f8f4e;
+  box-shadow: 0 0 0 4px rgba(47, 143, 78, 0.16);
+}
+
+.panel {
+  border: 1px solid #cfd8cc;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 24px 80px rgba(34, 50, 39, 0.14);
+}
+
+.task-form {
+  padding: 24px;
+  border-bottom: 1px solid #d8e0d6;
+}
+
+.task-form label {
+  display: block;
+  margin-bottom: 10px;
+  color: #273b2e;
+  font-size: 0.9rem;
+  font-weight: 800;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 10px;
+}
+
+input {
+  min-width: 0;
+  border: 1px solid #b9c7b8;
+  padding: 12px 14px;
+  background: #ffffff;
+  color: #16231a;
+  font: inherit;
+}
+
+button {
+  border: 1px solid #17271d;
+  padding: 0 18px;
+  background: #17271d;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.task-list {
+  padding: 24px;
+}
+
+.list-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+h2 {
+  margin: 0;
+  color: #16231a;
+  font-size: 1.1rem;
+}
+
+.list-header span,
+.empty,
+time {
+  color: #607066;
+  font-size: 0.9rem;
+}
+
+ul {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px;
+  border: 1px solid #d8e0d6;
+  background: #fbfdf8;
+}
+
+li span {
+  color: #18271d;
+  font-weight: 700;
+}
+
+@media (max-width: 720px) {
+  .overview,
+  .form-row,
+  li {
+    align-items: stretch;
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .status {
+    width: auto;
+  }
+
+  button {
+    min-height: 46px;
+  }
+}
