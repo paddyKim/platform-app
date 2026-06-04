@@ -41,13 +41,45 @@ docker compose down -v
 
 ## CI Responsibilities
 - Run backend tests
-- Run frontend tests/lint
+- Build frontend static assets
 - Build backend and frontend container images
 - Push images to GHCR
-- Update image tags in `platform-deploy`
 
-## Planned Image Names
+Deploy repo image tag updates are handled in Day 4 or later.
+
+## Jenkins Requirements
+The Jenkins agent that runs this repository must have access to:
+
+```bash
+git --version
+docker --version
+java -version
+node --version
+npm --version
+docker ps
+```
+
+`docker ps` must succeed because the pipeline builds and pushes container images.
+
+## Jenkins Credential
+Create this credential before running the pipeline:
+
+- Kind: `Username with password`
+- ID: `ghcr-token`
+- Username: `paddyKim`
+- Password: GitHub PAT with GHCR package write permission
+
+Do not store the PAT in this repository.
+
+## Image Names
 ```text
-ghcr.io/paddyKim/platform-api:<git-sha>
-ghcr.io/paddyKim/platform-web:<git-sha>
+ghcr.io/paddykim/platform-api:<git-short-sha>
+ghcr.io/paddykim/platform-web:<git-short-sha>
+```
+
+Successful `main` branch builds also push:
+
+```text
+ghcr.io/paddykim/platform-api:latest
+ghcr.io/paddykim/platform-web:latest
 ```
