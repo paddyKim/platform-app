@@ -83,3 +83,37 @@ Successful `main` branch builds also push:
 ghcr.io/paddykim/platform-api:latest
 ghcr.io/paddykim/platform-web:latest
 ```
+
+## CI/CD Flow
+This repository owns the build artifact creation part of the platform.
+
+```text
+Git commit -> Jenkins -> tests/builds -> Docker images -> GHCR
+```
+
+The deployment itself is intentionally not performed from this repository. Deployment state is owned by `platform-deploy` and synchronized by ArgoCD.
+
+## Current Verified Image Tag
+Day 7 and Day 8 used this image tag:
+
+```text
+ghcr.io/paddykim/platform-api:1fd847c
+ghcr.io/paddykim/platform-web:1fd847c
+```
+
+## Operational Boundary
+- This repo decides what application code is built.
+- Jenkins decides whether the app is testable and buildable.
+- GHCR stores the immutable image artifacts.
+- `platform-deploy` decides which image tag is deployed.
+- ArgoCD applies the desired deployment state to Kubernetes.
+
+## Metrics Endpoint
+The backend exposes Spring Boot actuator metrics for Prometheus:
+
+```bash
+curl http://localhost:8080/actuator/health
+curl http://localhost:8080/actuator/prometheus
+```
+
+In Kubernetes, Prometheus scrapes this endpoint through a ServiceMonitor defined in `platform-deploy`.
