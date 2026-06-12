@@ -117,3 +117,30 @@ curl http://localhost:8080/actuator/prometheus
 ```
 
 In Kubernetes, Prometheus scrapes this endpoint through a ServiceMonitor defined in `platform-deploy`.
+
+## Day 11 Image Security Scan Prep
+Day 11 adds Trivy image scanning between Docker build and GHCR push.
+
+Target flow:
+```text
+Docker build -> Trivy image scan -> GHCR push
+```
+
+Initial scan policy:
+- `CRITICAL`: fail Jenkins pipeline
+- `HIGH`: report only
+- `MEDIUM/LOW`: out of Day 11 scope
+
+The Jenkins agent must provide:
+```bash
+trivy --version
+docker ps
+```
+
+Planned Jenkins artifacts:
+```text
+trivy-reports/platform-api.txt
+trivy-reports/platform-web.txt
+```
+
+Detailed policy is documented in `../docs/security-scan-policy.md`.
