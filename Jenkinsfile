@@ -64,6 +64,36 @@ pipeline {
       }
     }
 
+    stage('Image Security Scan') {
+      steps {
+        sh '''
+          mkdir -p trivy-reports
+
+          trivy image \
+            --severity HIGH,CRITICAL \
+            --format table \
+            --output trivy-reports/platform-api.txt \
+            "$API_IMAGE_TAG"
+
+          trivy image \
+            --severity HIGH,CRITICAL \
+            --format table \
+            --output trivy-reports/platform-web.txt \
+            "$WEB_IMAGE_TAG"
+
+          trivy image \
+            --severity CRITICAL \
+            --exit-code 1 \
+            "$API_IMAGE_TAG"
+
+          trivy image \
+            --severity CRITICAL \
+            --exit-code 1 \
+            "$WEB_IMAGE_TAG"
+        '''
+      }
+    }
+
     stage('GHCR Login') {
       steps {
         withCredentials([usernamePassword(
@@ -98,6 +128,7 @@ pipeline {
 
   post {
     always {
+      archiveArtifacts artifacts: 'trivy-reports/*.txt', allowEmptyArchive: true
       sh 'docker logout "$REGISTRY" || true'
     }
   }
