@@ -146,3 +146,12 @@ trivy-reports/platform-web.txt
 Trivy is installed on the external Jenkins agent as a prerequisite. Agent provisioning is not automated in this repository.
 
 Detailed policy is documented in `../docs/security-scan-policy.md`.
+
+## Day 12 CRITICAL Remediation
+Day 12 remediates the CRITICAL findings that blocked the Day 11 pipeline.
+
+Changes:
+- API: override `tomcat.version` to `11.0.22` to remediate `tomcat-embed-core` CRITICAL findings.
+- Web: run `apk upgrade --no-cache` in the nginx Alpine runtime stage to update vulnerable runtime packages such as `libcrypto3` and `libssl3`.
+
+HIGH findings remain report-only under the current policy.

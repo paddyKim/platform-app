@@ -8,6 +8,8 @@ group = 'com.paddykim.platform'
 version = '0.0.1-SNAPSHOT'
 description = 'Platform Starter API'
 
+ext['tomcat.version'] = '11.0.22'
+
 java {
 	toolchain {
 		languageVersion = JavaLanguageVersion.of(17)
